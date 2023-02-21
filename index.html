@@ -1,0 +1,32 @@
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>vMix Stinger Switcher for KEIO Apex CUP 2023</title>
+
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple-v1.css" />
+        <link rel="stylesheet" href="style.css" />
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    </head>
+    <body>
+        <header class="flex-row">
+            <p>
+                <label>IPアドレス<input id="inp_IP_ADDRESS" type="tel" value="" placeholder="localhost" /></label>
+            </p>
+            <p>
+                <label>ポート番号<input id="inp_PORT_NUMBER" type="tel" value="" placeholder="8088" /></label>
+            </p>
+        </header>
+        <main>
+            <section id="vmix_inputs"></section>
+        </main>
+        <footer id="setting">
+            <p id="setting_color">色：<span style="background:var(--preview-color);">　</span><span style="background:var(--program-color);">　</span>
+                <label><input type="radio" name="inp_COLORSET" value="color_vmix" onchange="javascript:changeColor()" checked>vMix</label>
+                <label><input type="radio" name="inp_COLORSET" value="color_atem" onchange="javascript:changeColor()">ATEM</label>
+            </p>
+
+    </body>
+    <script src="main.js"></script>
+</html>
