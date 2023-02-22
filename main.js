@@ -140,6 +140,8 @@ function createVMixInputs() {
 
         if (elem.innerText != input.title) elem.innerHTML = `<span>${input.title}</span>`;
     }
+
+    filterInputs();
 }
 
 ((_) => {
@@ -176,7 +178,29 @@ function filterInputs() {
     }
 }
 
+function getCookie() {
+    if ($.cookie('ip_address')) IP_ADDRESS = inp_IP_ADDRESS.value = $.cookie('ip_address');
+    if ($.cookie('port_number')) PORT_NUMBER = inp_PORT_NUMBER.value = $.cookie('port_number');
+    if ($.cookie('input_filter')) inp_INPUTS_FILTER.value = $.cookie('input_filter');
+    if ($.cookie('color_set')) {
+        document.querySelector(`#setting_color [value=${$.cookie('color_set')}]`).checked = true;
+        changeColor();
+    }
+    if ($.cookie('do_in_at_dblclick')) setting_doInAtDblClick.checked = $.cookie('do_in_at_dblclick') == 'true';
+}
+
+function removeCookie() {
+    if (!window.confirm('クッキーを削除しますか？')) return;
+    $.removeCookie('ip_address');
+    $.removeCookie('port_number');
+    $.removeCookie('input_filter');
+    $.removeCookie('color_set');
+    $.removeCookie('do_in_at_dblclick');
+    if (window.confirm('クッキーを削除しました\nページを更新しますか？')) location.reload();
+}
+
 $(function () {
     $('#vmix_inputs').sortable();
     $('#vmix_inputs').disableSelection();
+    getCookie();
 });

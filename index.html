@@ -7,20 +7,21 @@
         <link rel="stylesheet" href="style.css" />
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.0/fastclick.min.js" integrity="sha512-oljyd1wg75alHReTpDvNIQ4Yj1wZwGxxZhJhId3vr2dKY+26/r/wmMrImwDgin03+7wxyhX+adOQB/2BTvO5tQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
             $(function() {
                 FastClick.attach(document.body);
             })
         </script>
-        <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body>
         <header class="flex-row flex-between">
             <p class="flex-row">
-                <label>IPアドレス<input id="inp_IP_ADDRESS" type="tel" value="" placeholder="localhost" onchange="javascript:IP_ADDRESS=this.value||this.placeholder" /></label>
-                <label>ポート番号<input id="inp_PORT_NUMBER" type="tel" value="" placeholder="8088" onchange="javascript:PORT_NUMBER=this.value||this.placeholder" /></label>
-                <label>フィルタ<input id="inp_INPUTS_FILTER" type="text" value="" placeholder="" onchange="javascript:filterInputs()" /></label>
+                <label>IPアドレス<input id="inp_IP_ADDRESS" type="tel" value="" placeholder="localhost" onchange="javascript:IP_ADDRESS=this.value||this.placeholder;$.cookie('ip_address', this.value, {expires:7})" /></label>
+                <label>ポート番号<input id="inp_PORT_NUMBER" type="tel" value="" placeholder="8088" onchange="javascript:PORT_NUMBER=this.value||this.placeholder;$.cookie('port_number', this.value, {expires:7})" /></label>
+                <label>フィルタ<input id="inp_INPUTS_FILTER" type="text" value="" placeholder="" onchange="javascript:filterInputs();$.cookie('input_filter', this.value, {expires:7})" /></label>
             </p>
             <p>
                 <button id="overlay_out_btn" class="sub-color" onclick="javascript:sendVMixFunc('OverlayInput4Out');">Out Overlay4</button>
@@ -36,10 +37,11 @@
         <footer id="setting">
             <h3>設定</h3>
             <p id="setting_color">色：<span style="background:var(--preview-color);">　</span><span style="background:var(--program-color);">　</span>
-                <label><input type="radio" name="inp_COLORSET" value="color_vmix" onchange="javascript:changeColor()" checked>vMix</label>
-                <label><input type="radio" name="inp_COLORSET" value="color_atem" onchange="javascript:changeColor()">ATEM</label>
+                <label><input type="radio" name="inp_COLORSET" value="color_vmix" onchange="javascript:changeColor();$.cookie('color_set', this.value, {expires:7})" checked>vMix</label>
+                <label><input type="radio" name="inp_COLORSET" value="color_atem" onchange="javascript:changeColor();$.cookie('color_set', this.value, {expires:7})">ATEM</label>
             </p>
-            <p><label>ダブルクリックで送出する<input type="checkbox" id="setting_doInAtDblClick" checked></label></p>
+            <p><label>ダブルクリックで送出する<input type="checkbox" id="setting_doInAtDblClick" onchange="$.cookie('do_in_at_dblclick', this.value, {expires:7})" checked></label></p>
+            <p><button onclick="javascript:removeCookie()">Cookieを削除する</button></p>
 
     </body>
     <script src="main.js"></script>
