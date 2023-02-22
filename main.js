@@ -35,7 +35,7 @@ function sendProto(url, callback, type = 'json') {
 function sendVMixFunc(functionName = '', params = {}, callback = (_) => {}) {
     if (functionName) params.Function = functionName;
     let url = `http://${IP_ADDRESS}:${PORT_NUMBER}/api/?` + new URLSearchParams(params).toString();
-    sendProto(url, callback, functionName ? 'json' : 'xml');
+    sendProto(url, callback, functionName ? 'text' : 'xml');
 }
 
 function getVMixData(callback = (_) => {}) {
@@ -127,6 +127,13 @@ function createVMixInputs() {
                     elem.classList.remove('active');
                 });
                 this.classList.toggle('active');
+            });
+            elem.addEventListener('dblclick', function () {
+                document.querySelectorAll('.vmix_input.active').forEach((elem) => {
+                    elem.classList.remove('active');
+                });
+                this.classList.toggle('active');
+                if (setting_doInAtDblClick.checked) overlay_in_btn.onclick();
             });
             VMIX_INPUTS_CONTAINER.appendChild(elem);
         }
