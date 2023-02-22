@@ -91,7 +91,7 @@ function getVMixData(callback = (_) => {}) {
         }
 
         overlay_out_btn.toggleAttribute('disabled', !vMixOverlays.find((v) => v.program == true));
-        overlay_in_btn.toggleAttribute('disabled', !document.querySelector('.vmix_input.active'));
+        overlay_in_btn.toggleAttribute('disabled', !document.querySelector('.vmix_input.active:not(.hidden)'));
 
         // console.log('finish getVMixData');
 
@@ -158,6 +158,14 @@ function changeColor() {
     let inp_COLORSETs = document.querySelectorAll('#setting_color input[type=radio]');
     for (let inp of inp_COLORSETs) {
         body.classList.toggle(inp.value, inp.checked);
+    }
+}
+
+function filterInputs() {
+    let inputs = document.querySelectorAll('.vmix_input');
+    let filter = inp_INPUTS_FILTER.value;
+    for (let input of inputs) {
+        input.classList.toggle('hidden', filter != '' && input.innerText.toLowerCase().indexOf(filter.toLowerCase()) == -1);
     }
 }
 

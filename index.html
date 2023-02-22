@@ -14,10 +14,11 @@
             <p class="flex-row">
                 <label>IPアドレス<input id="inp_IP_ADDRESS" type="tel" value="" placeholder="localhost" onchange="javascript:IP_ADDRESS=this.value||this.placeholder" /></label>
                 <label>ポート番号<input id="inp_PORT_NUMBER" type="tel" value="" placeholder="8088" onchange="javascript:PORT_NUMBER=this.value||this.placeholder" /></label>
+                <label>フィルタ<input id="inp_INPUTS_FILTER" type="text" value="" placeholder="" onchange="javascript:filterInputs()" /></label>
             </p>
             <p>
                 <button id="overlay_out_btn" class="sub-color" onclick="javascript:sendVMixFunc('OverlayInput4Out');">Out Overlay4</button>
-                <button id="overlay_in_btn" onclick="javascript:sendVMixFunc('OverlayInput4In', {Input: document.querySelector('.vMix_input.active').dataset.key });">In to Overlay4</button>
+                <button id="overlay_in_btn" onclick="javascript:sendVMixFunc('OverlayInput4In', {Input: document.querySelector('.vMix_input.active:not(.hidden)').dataset.key });">In to Overlay4</button>
             </p>
         </header>
         <main>

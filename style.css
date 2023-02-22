@@ -102,3 +102,7 @@ section#vmix_inputs > div.vmix_input.active {
     border-color: var(--active-input-color) !important;
     border-width: 5px;
 }
+
+section#vmix_inputs > div.vmix_input.hidden {
+    display: none;
+}
