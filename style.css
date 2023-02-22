@@ -15,6 +15,10 @@ body {
     max-width: calc(100vw - 1em);
 }
 
+header {
+    padding: 1rem 2rem;
+}
+
 .flex-col {
     display: flex;
     flex-direction: column;
@@ -23,6 +27,11 @@ body {
 .flex-row {
     display: flex;
     flex-direction: row;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* 中身をグリッド状に並べる。中身は自動生成される。 */
@@ -37,6 +46,7 @@ section#vmix_inputs > div.vmix_input {
     border: 1px solid var(--border);
     border-radius: 0.5em;
     padding: 0.8em;
+    min-height: 8rem;
 
     display: flex;
     justify-content: center;
@@ -54,6 +64,7 @@ body.color_vmix {
     --preview-color-bg: #ffb30040;
     --accent: #1f8d09;
     --accent-light: #20b302;
+    --accent-sub: #ffb300;
 }
 
 body.color_atem {
@@ -63,6 +74,16 @@ body.color_atem {
     --preview-color-bg: #1f8d0940;
     --accent: #e32709;
     --accent-light: #d12203;
+    --accent-sub: #1f8d09;
+}
+
+a.sub-color button,
+button.sub-color,
+.sub-color[role='button'],
+input.sub-color[type='submit'],
+input.sub-color[type='reset'],
+input.sub-color[type='button'] {
+    background: var(--accent-sub);
 }
 
 section#vmix_inputs > div.vmix_input.program {

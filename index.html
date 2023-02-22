@@ -10,18 +10,24 @@
         <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     </head>
     <body>
-        <header class="flex-row">
-            <p>
-                <label>IPアドレス<input id="inp_IP_ADDRESS" type="tel" value="" placeholder="localhost" /></label>
+        <header class="flex-row flex-between">
+            <p class="flex-row">
+                <label>IPアドレス<input id="inp_IP_ADDRESS" type="tel" value="" placeholder="localhost" onchange="javascript:IP_ADDRESS=this.value||this.placeholder" /></label>
+                <label>ポート番号<input id="inp_PORT_NUMBER" type="tel" value="" placeholder="8088" onchange="javascript:PORT_NUMBER=this.value||this.placeholder" /></label>
             </p>
             <p>
-                <label>ポート番号<input id="inp_PORT_NUMBER" type="tel" value="" placeholder="8088" /></label>
+                <button id="overlay_out_btn" class="sub-color" onclick="javascript:sendVMixFunc('OverlayInput4Out');">Out Overlay4</button>
+                <button id="overlay_in_btn" onclick="javascript:sendVMixFunc('OverlayInput4In', {Input: document.querySelector('.vMix_input.active').dataset.key });">In to Overlay4</button>
             </p>
         </header>
         <main>
-            <section id="vmix_inputs"></section>
+            <section id="vmix_status">
+            </section>
+            <section id="vmix_inputs">
+            </section>
         </main>
         <footer id="setting">
+            <h3>設定</h3>
             <p id="setting_color">色：<span style="background:var(--preview-color);">　</span><span style="background:var(--program-color);">　</span>
                 <label><input type="radio" name="inp_COLORSET" value="color_vmix" onchange="javascript:changeColor()" checked>vMix</label>
                 <label><input type="radio" name="inp_COLORSET" value="color_atem" onchange="javascript:changeColor()">ATEM</label>

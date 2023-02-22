@@ -11,6 +11,9 @@ var VMIX_INPUTS_CONTAINER = document.getElementById('vmix_inputs');
 /** @type {[{}]} */
 var vMixInputs = [];
 
+/** @type {[{input:string, program:boolean, preview:boolean}]} */
+var vMixOverlays = [];
+
 function sendProto(url, callback, type = 'json') {
     $.ajax({
         url: url,
@@ -29,7 +32,7 @@ function sendProto(url, callback, type = 'json') {
         });
 }
 
-function sendVMixFunc(functionName, params, callback) {
+function sendVMixFunc(functionName = '', params = {}, callback = (_) => {}) {
     if (functionName) params.Function = functionName;
     let url = `http://${IP_ADDRESS}:${PORT_NUMBER}/api/?` + new URLSearchParams(params).toString();
     sendProto(url, callback, functionName ? 'json' : 'xml');
@@ -56,7 +59,6 @@ function getVMixData(callback = (_) => {}) {
 
             // inputsに無いkeyを持つvMixInputsの要素を削除します
             vMixInputs = vMixInputs.filter((v) => [...inputs].findIndex((vv) => vv.value == v.key) != -1);
-
             for (let inp of inputs) {
                 let input_object = {};
                 for (let i = 0; i < inp.attributes.length; i = 0 | (i + 1)) {
@@ -69,7 +71,27 @@ function getVMixData(callback = (_) => {}) {
                     vMixInputs[vMixInputs.findIndex((v) => v.key == inp.key)] = input_object;
                 }
             }
+
+            let overlays = data.getElementsByTagName('overlay');
+            for (let i = 0; i < overlays.length; i = 0 | (i + 1)) {
+                if (!vMixOverlays[i]) vMixOverlays[i] = {};
+                if (overlays[i].textContent) {
+                    vMixOverlays[i].input = vMixInputs.find((v) => v.number == overlays[i].textContent).key;
+                    if (overlays[i].attributes.preview) {
+                        vMixOverlays[i].program = false;
+                        vMixOverlays[i].preview = true;
+                    } else {
+                        vMixOverlays[i].program = true;
+                        vMixOverlays[i].preview = false;
+                    }
+                } else {
+                    vMixOverlays[i] = { input: '', program: false, preview: false };
+                }
+            }
         }
+
+        overlay_out_btn.toggleAttribute('disabled', !vMixOverlays.find((v) => v.program == true));
+        overlay_in_btn.toggleAttribute('disabled', !document.querySelector('.vmix_input.active'));
 
         // console.log('finish getVMixData');
 
@@ -109,7 +131,7 @@ function createVMixInputs() {
             VMIX_INPUTS_CONTAINER.appendChild(elem);
         }
 
-        if (elem.innerText != input.shortTitle) elem.innerHTML = `<span>${input.shortTitle}</span>`;
+        if (elem.innerText != input.title) elem.innerHTML = `<span>${input.title}</span>`;
     }
 }
 
